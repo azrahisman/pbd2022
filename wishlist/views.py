@@ -15,5 +15,10 @@ def show_wishlist(request):
 
 def show_xml(request):
     data = ItemWishlist.objects.all()
-    
+
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = ItemWishlist.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    
