@@ -7,8 +7,8 @@
             "item_price":"14000000",
             "description": "It gives you ulcers because it's expensive."
         }
-},
-{
+    },
+    {
         "model": "wishlist.itemwishlist",
         "pk":2,
         "fields":{
