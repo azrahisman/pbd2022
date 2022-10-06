@@ -1,36 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      </div>
-    </div>
-  </nav>
-
-
 
 <h5>Name: </h5>
 <b>Azra Batrisyia Hisman</b>
 
-<table>
-    <tr>
-    <th>Item Name</th>
-    <th>Item Price</th>
-    <th>Description</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% comment %} Add data below {% endcomment %}
-    {% for item in list_item %}
-    <tr>
-        <th>{{item.item_name}}</th>
-        <th>{{item.item_price}}</th>
-        <th>{{item.description}}</th>
-    </tr>
-{% endfor %}
-</table>
+<script>
+  $(document).ready(() =>{
+    var avariable = 'something'
+    const url = "http://localhost:8000/wishlist/json/";
+    $.get(url, (data) => {
+      data.forEach((item) => {
+        var item_name = item.fields.item_name;
+        var item_price = item.fields.item_price;
+        var item_description = item.fields.description;
+        var html = "<tr><td>" + item_name +
+                   "</td><td>" + item_price +
+                   "</td><td>" + item_description + "</td>";
+        $("tbody").append(html);
+      })
+    })
+  })
+</script>
 
 {% endblock content %}
