@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Submit Wishlist</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+    <h1>Add your wishlist here:</h1>
+
+        <form method="POST" >
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td>Item Name: </td>
+                    <td><input type="text" name="item_name" value=""/></td>
+                </tr>
+                <tr>
+                    <td>Item Price: </td>
+                    <td><input type="text" name="item_price" value=""/></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><input type="text" name="description" value=""/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Submit"/></td>
+                </tr>
+            </table>
+        </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

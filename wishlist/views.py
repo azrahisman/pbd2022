@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from .forms import WishlistForm
 
 # Create your views here.
 @login_required(login_url='/wishlist/login/')
@@ -72,6 +73,7 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+@login_required(login_url='/wishlist/login/')
 def wishlist_ajax(request):
     data_wishlist_item = ItemWishlist.objects.all()
     context = {
@@ -80,3 +82,19 @@ def wishlist_ajax(request):
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "wishlist_ajax.html", context)
+
+@login_required(login_url='/wishlist/login/')
+def submit(request):
+    if request.method == 'POST':
+        item_name = request.POST.get("item_name")
+        item_price = request.POST.get("item_price")
+        description = request.POST.get("description")
+        ItemWishlist.objects.create(item_name=item_name, item_price=item_price, description=description)
+        return redirect('wishlist:show_wishlist')
+    data_wishlist_item = ItemWishlist.objects.all()
+    context = {
+        'list_item': data_wishlist_item,
+        'username': request.COOKIES['username'],
+        'last_login': request.COOKIES['last_login'],
+    }
+    return render(request, 'submit.html', context)
